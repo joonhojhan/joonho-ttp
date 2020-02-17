@@ -19,3 +19,38 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-content-flex-end {
+  justify-content: flex-end;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.space-around {
+  justify-content: space-between;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.page-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* .inline-block {
+  display: inline-block;
+} */
