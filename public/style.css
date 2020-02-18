@@ -36,6 +36,18 @@ form div {
   justify-content: center;
 }
 
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.justify-content-space-evenly {
+  justify-content: space-evenly;
+}
+
+.justify-content-space-around {
+  justify-content: space-around;
+}
+
 .space-around {
   justify-content: space-between;
 }
@@ -51,6 +63,17 @@ form div {
   transform: translate(-50%, -50%);
 }
 
-/* .inline-block {
+.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.inline-block {
   display: inline-block;
-} */
+}
+
+.margin-x-0 {
+  margin-left: 0;
+  margin-right: 0;
+}
