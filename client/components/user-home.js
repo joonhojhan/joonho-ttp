@@ -6,11 +6,14 @@ import {connect} from 'react-redux'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
+  const {email, balance} = props
 
   return (
-    <div className="page-center">
-      <h3>Welcome, {email}</h3>
+    <div className="page-center flex justify-content-center col">
+      <h3 className="text-center">Welcome, {email}</h3>
+      <div className="text-center">
+        You have a balance of: ${(balance / 100).toFixed(2)}
+      </div>
     </div>
   )
 }
@@ -20,7 +23,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    balance: state.user.balance
   }
 }
 
