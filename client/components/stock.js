@@ -1,13 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchStock} from '../store'
+import {StockData} from '../components'
 
-function Stock(props) {
+function StockSearch(props) {
   const {handleSubmit, stock} = props
-  const [text, setText] = React.useState('')
-  const handleChange = event => {
-    setText(event.target.value)
-  }
   const {
     symbol,
     companyName,
@@ -24,27 +21,32 @@ function Stock(props) {
   return (
     <div className="flex justify-content-center page-center col">
       <form className="flex justify-content-center col" onSubmit={handleSubmit}>
-        <div className="flex justify-content-center">
+        <div className="flex justify-content-space-between margin-x-0">
+          <label htmlFor="search">Ticker Symbol: </label>
           <input
             name="symbol"
             type="text"
             placeholder="e.g. aapl, goog, etc."
-            onChange={handleChange}
-            value={text}
           />
         </div>
       </form>
-      <div>Symbol: {symbol}</div>
-      <div>Company: {companyName}</div>
-      <div>Status: {latestSource}</div>
-      <div>Current Price: ${latestPrice}</div>
-      <div>Open Price: ${open}</div>
-      <div>Close Price: ${close}</div>
-      <div>High Price: ${high}</div>
-      <div>Low Price: ${low}</div>
-      <div>Previous Close Price: ${previousClose}</div>
-      <div>Change Price: ${change}</div>
-      <div>Change Percentage: {changePercent}%</div>
+      {Object.keys(stock).length ? (
+        <StockData
+          symbol={symbol}
+          companyName={companyName}
+          open={open}
+          close={close}
+          high={high}
+          low={low}
+          latestPrice={latestPrice}
+          latestSource={latestSource}
+          previousClose={previousClose}
+          change={change}
+          changePercent={changePercent}
+        />
+      ) : (
+        <div />
+      )}
     </div>
   )
 }
@@ -60,4 +62,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Stock)
+export default connect(mapStateToProps, mapDispatchToProps)(StockSearch)

@@ -1,6 +1,6 @@
 import axios from 'axios'
 // import history from '../history'
-const API_TOKEN = 'sk_b694d08e650645a68f962a2ed7de2493'
+const API_TOKEN = process.env.API_TOKEN || 'pk_5fa4986129114beeacbd37a6b20f35df'
 
 /**
  * ACTION TYPES
@@ -26,7 +26,6 @@ export const fetchStock = ticker => async dispatch => {
     let {data} = await axios.get(
       `https://cloud.iexapis.com/stable/stock/${ticker}/batch?types=quote&token=${API_TOKEN}`
     )
-    console.log('DATA', data)
     const {
       symbol,
       companyName,
