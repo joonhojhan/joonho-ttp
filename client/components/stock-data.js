@@ -20,12 +20,16 @@ export default function StockData(props) {
       <div>Company: {companyName}</div>
       <div>Status: {latestSource}</div>
       <div>Current Price: ${latestPrice.toFixed(2)}</div>
-      <div>Open Price: ${open.toFixed(2)}</div>
-      <div>Close Price: ${close.toFixed(2)}</div>
-      <div>High Price: ${high.toFixed(2)}</div>
-      <div>Low Price: ${low.toFixed(2)}</div>
+      {latestSource === 'close' && (
+        <div>
+          <div>Open Price: ${open.toFixed(2)}</div>
+          <div>Close Price: ${close.toFixed(2)}</div>
+          <div>High Price: ${high.toFixed(2)}</div>
+          <div>Low Price: ${low.toFixed(2)}</div>
+        </div>
+      )}
       <div>Previous Close Price: ${previousClose.toFixed(2)}</div>
-      <div>Change Price: ${change.toFixed(2)}</div>
+      <div>Change Price: ${change}</div>
       <div>Change Percentage: {changePercent}%</div>
     </div>
   )

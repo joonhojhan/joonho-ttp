@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchStock} from '../store'
+import {fetchStock, purchaseStock} from '../store'
 import {StockData} from '../components'
 
 function StockSearch(props) {
-  const {handleSubmit, stock} = props
+  const {handleSubmit, stock, user} = props
+
   const {
     symbol,
     companyName,
@@ -18,6 +19,23 @@ function StockSearch(props) {
     change,
     changePercent
   } = stock
+
+  const handleBuy = evt => {
+    evt.preventDefault()
+    let shares = evt.target.shares.value
+    if (user.balance - shares * latestPrice < 0) return null
+    else {
+      let transaction = {
+        shares,
+        companyName,
+        symbol,
+        latestPrice,
+        userId: user.id
+      }
+      props.purchaseStock(transaction)
+    }
+  }
+
   return (
     <div className="flex justify-content-center page-center col">
       <form className="flex justify-content-center col" onSubmit={handleSubmit}>
@@ -47,18 +65,25 @@ function StockSearch(props) {
       ) : (
         <div />
       )}
+      <form className="flex justify-content-center col" onSubmit={handleBuy}>
+        <input name="shares" type="number" />
+      </form>
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  stock: state.stock
+  stock: state.stock,
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
   handleSubmit(evt) {
     evt.preventDefault()
     dispatch(fetchStock(evt.target.symbol.value))
+  },
+  purchaseStock(transaction) {
+    dispatch(purchaseStock(transaction))
   }
 })
 
