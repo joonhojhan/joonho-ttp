@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Transaction = db.define('transaction', {
+const Portfolio = db.define('portfolio', {
   company: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -16,7 +16,7 @@ const Transaction = db.define('transaction', {
       notEmpty: true
     }
   },
-  price: {
+  total: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
@@ -34,4 +34,4 @@ const Transaction = db.define('transaction', {
   }
 })
 
-module.exports = Transaction
+module.exports = Portfolio

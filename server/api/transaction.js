@@ -9,7 +9,7 @@ router.post('/', async (req, res, next) => {
       shares,
       company: companyName,
       tickerSymbol: symbol,
-      price: latestPrice * 100,
+      price: (latestPrice * 100).toFixed(0),
       userId
     })
     let user = await User.findByPk(userId)
