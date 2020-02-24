@@ -39,7 +39,7 @@ function StockSearch(props) {
   }
 
   return (
-    <div className="flex justify-content-center page-center col">
+    <div className="flex col" style={{height: '80vh'}}>
       <form className="flex justify-content-center col" onSubmit={handleSubmit}>
         <div className="flex col justify-content-space-between margin-x-0">
           <label htmlFor="search">Ticker Symbol: </label>
