@@ -11,10 +11,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       {isLoggedIn ? (
         <div className="flex justify-content-flex-end">
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          {/* <Link to="/home">Home</Link> */}
           <Link to="/transactions">Transactions</Link>
           <Link to="/portfolio">Portfolio</Link>
-          <Link to="/search">Search</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
