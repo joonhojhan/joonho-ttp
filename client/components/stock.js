@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchStock, purchaseStock} from '../store'
+import {fetchStock, purchaseStock, me} from '../store'
 import {StockData} from '../components'
 
 function StockSearch(props) {
@@ -23,8 +23,7 @@ function StockSearch(props) {
   const handleBuy = evt => {
     evt.preventDefault()
     let shares = evt.target.shares.value
-    if (user.balance - shares * latestPrice < 0) return null
-    else {
+    if (user.balance / 100 - Number(shares) * latestPrice >= 0) {
       let transaction = {
         shares,
         companyName,
@@ -33,6 +32,9 @@ function StockSearch(props) {
         userId: user.id
       }
       props.purchaseStock(transaction)
+      props.me()
+    } else {
+      console.log('Balance too low!')
     }
   }
 
@@ -84,6 +86,9 @@ const mapDispatchToProps = dispatch => ({
   },
   purchaseStock(transaction) {
     dispatch(purchaseStock(transaction))
+  },
+  me() {
+    dispatch(me())
   }
 })
 
