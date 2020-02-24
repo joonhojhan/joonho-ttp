@@ -2,80 +2,69 @@ import React from 'react'
 import {me} from '../store'
 import {connect} from 'react-redux'
 
-function Transaction(props) {
+const Portfolio = props => {
   React.useEffect(() => {
     props.me()
   }, [])
-  const {transactions} = props.user
-  return transactions && transactions.length ? (
+  const {portfolios} = props.user
+  return portfolios && portfolios.length ? (
     <table className="width-100 text-center">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Ticker Symbol</th>
           <th scope="col">Company Name</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Price</th>
+          <th scope="col">Shares</th>
           <th scope="col">Total</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th>
-            {transactions.map(trans => {
+            {portfolios.map(stock => {
               return (
-                <div key={trans.id}>
-                  {trans.id}
+                <div key={stock.id}>
+                  {stock.id}
                   <br />
                 </div>
               )
             })}
           </th>
           <td>
-            {transactions.map(trans => {
+            {portfolios.map(stock => {
               return (
-                <div key={trans.id}>
-                  {trans.tickerSymbol}
+                <div key={stock.id}>
+                  {stock.tickerSymbol}
                   <br />
                 </div>
               )
             })}
           </td>
           <td>
-            {transactions.map(trans => {
+            {portfolios.map(stock => {
               return (
-                <div key={trans.id}>
-                  {trans.company}
+                <div key={stock.id}>
+                  {stock.company}
                   <br />
                 </div>
               )
             })}
           </td>
           <td>
-            {transactions.map(trans => {
+            {portfolios.map(stock => {
               return (
-                <div key={trans.id}>
-                  {trans.shares}
+                <div key={stock.id}>
+                  {stock.shares}
                   <br />
                 </div>
               )
             })}
           </td>
           <td>
-            {transactions.map(trans => {
+            {portfolios.map(stock => {
               return (
-                <div key={trans.id}>
-                  ${(trans.price / 100).toFixed(2)}
-                  <br />
-                </div>
-              )
-            })}
-          </td>
-          <td>
-            {transactions.map(trans => {
-              return (
-                <div key={trans.id}>
-                  ${((trans.price * trans.shares) / 100).toFixed(2)}
+                <div key={stock.id}>
+                  ${(stock.total / 100).toFixed(2)}
                   <br />
                 </div>
               )
@@ -85,7 +74,7 @@ function Transaction(props) {
       </tbody>
     </table>
   ) : (
-    <div className="text-center">No orders made!</div>
+    <div className="text-center">Nothing in portfolio to show!</div>
   )
 }
 
@@ -97,4 +86,4 @@ const mapDispatchToProps = dispatch => ({
   me: () => dispatch(me())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Transaction)
+export default connect(mapStateToProps, mapDispatchToProps)(Portfolio)

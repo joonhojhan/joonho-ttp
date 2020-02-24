@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchStock, purchaseStock, me} from '../store'
+import {fetchStock, purchaseStock, addToPortfolio, me} from '../store'
 import {StockData} from '../components'
 
 function StockSearch(props) {
@@ -22,8 +22,8 @@ function StockSearch(props) {
 
   const handleBuy = evt => {
     evt.preventDefault()
-    let shares = evt.target.shares.value
-    if (user.balance / 100 - Number(shares) * latestPrice >= 0) {
+    let shares = Number(evt.target.shares.value)
+    if (user.balance / 100 - shares * latestPrice >= 0) {
       let transaction = {
         shares,
         companyName,
@@ -32,7 +32,7 @@ function StockSearch(props) {
         userId: user.id
       }
       props.purchaseStock(transaction)
-      props.me()
+      props.addToPortfolio(transaction)
     } else {
       console.log('Balance too low!')
     }
@@ -41,13 +41,14 @@ function StockSearch(props) {
   return (
     <div className="flex justify-content-center page-center col">
       <form className="flex justify-content-center col" onSubmit={handleSubmit}>
-        <div className="flex justify-content-space-between margin-x-0">
+        <div className="flex col justify-content-space-between margin-x-0">
           <label htmlFor="search">Ticker Symbol: </label>
           <input
             name="symbol"
             type="text"
-            placeholder="e.g. aapl, goog, etc."
+            placeholder="e.g. AAPL, GOOG, AMZN, etc."
           />
+          <button type="submit">Search</button>
         </div>
       </form>
       {Object.keys(stock).length ? (
@@ -64,12 +65,17 @@ function StockSearch(props) {
           change={change}
           changePercent={changePercent}
         />
-      ) : (
-        <div />
-      )}
-      <form className="flex justify-content-center col" onSubmit={handleBuy}>
-        <input name="shares" type="number" />
-      </form>
+      ) : null}
+      {!(
+        Object.keys(stock).length &&
+        latestSource !== 'Close' &&
+        latestSource !== undefined
+      ) ? (
+        <form className="flex justify-content-center col" onSubmit={handleBuy}>
+          <input name="shares" type="number" />
+          <button type="submit">Buy</button>
+        </form>
+      ) : null}
     </div>
   )
 }
@@ -86,6 +92,9 @@ const mapDispatchToProps = dispatch => ({
   },
   purchaseStock(transaction) {
     dispatch(purchaseStock(transaction))
+  },
+  addToPortfolio(transaction) {
+    dispatch(addToPortfolio(transaction))
   },
   me() {
     dispatch(me())

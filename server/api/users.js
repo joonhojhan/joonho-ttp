@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Transaction} = require('../db/models')
+const {User, Transaction, Portfolio} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -10,6 +10,9 @@ router.get('/', async (req, res, next) => {
       // send everything to anyone who asks!
       attributes: ['id', 'email'],
       include: [
+        {
+          model: Portfolio
+        },
         {
           model: Transaction
         }

@@ -7,6 +7,7 @@ import history from '../history'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const BUY_STOCK = 'BUY_STOCK'
+const EDIT_PORTFOLIO = 'EDIT_PORTFOLIO'
 
 /**
  * INITIAL STATE
@@ -19,6 +20,7 @@ const defaultUser = {}
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const buyStock = balance => ({type: BUY_STOCK, balance})
+const editPortfolio = () => ({type: EDIT_PORTFOLIO})
 
 /**
  * THUNK CREATORS
@@ -60,8 +62,18 @@ export const logout = () => async dispatch => {
 
 export const purchaseStock = transaction => async dispatch => {
   try {
-    let {data} = await axios.post('/api/transaction', transaction)
+    const {data} = await axios.post('/api/transaction', transaction)
     dispatch(buyStock(data))
+    // history.push('/home')
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const addToPortfolio = transaction => async dispatch => {
+  try {
+    await axios.post('/api/portfolio', transaction)
+    dispatch(editPortfolio())
   } catch (error) {
     console.error(error)
   }
