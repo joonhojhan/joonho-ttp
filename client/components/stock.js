@@ -66,16 +66,16 @@ function StockSearch(props) {
           changePercent={changePercent}
         />
       ) : null}
-      {!(
-        Object.keys(stock).length &&
-        latestSource !== 'Close' &&
-        latestSource !== undefined
-      ) ? (
+      {Object.keys(stock).length &&
+      latestSource !== 'Close' &&
+      latestSource !== undefined ? (
         <form className="flex justify-content-center col" onSubmit={handleBuy}>
           <input name="shares" type="number" />
           <button type="submit">Buy</button>
         </form>
-      ) : null}
+      ) : (
+        <div>Market is closed for the day, come back tomorrow!</div>
+      )}
     </div>
   )
 }
