@@ -74,6 +74,7 @@ export const addToPortfolio = transaction => async dispatch => {
   try {
     await axios.post('/api/portfolio', transaction)
     dispatch(editPortfolio())
+    dispatch(me())
   } catch (error) {
     console.error(error)
   }

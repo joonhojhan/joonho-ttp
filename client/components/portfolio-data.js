@@ -3,10 +3,10 @@ import {me} from '../store'
 import {connect} from 'react-redux'
 
 const PortfolioData = props => {
+  const {portfolios, balance} = props.user
   React.useEffect(() => {
     props.me()
   }, [])
-  const {portfolios, balance} = props.user
   return portfolios && portfolios.length ? (
     <div className="flex col" style={{height: '80vh'}}>
       <div className="text-center" style={{fontSize: '24px'}}>
